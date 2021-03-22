@@ -3,7 +3,7 @@ export interface RecipeType {
   id: number
   title: string
   description: string
-  image_url: string
+  image_url?: string
   author: authorType
   published_at: string
   ingredients: ingredientsType

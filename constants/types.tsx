@@ -11,6 +11,7 @@ export interface RecipeType {
 }
 
 export interface RecipesType {
+  map(arg0: (recipe: any) => any): string | number | boolean | {} | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | import("react").ReactNodeArray | import("react").ReactPortal | null | undefined
   Recipes: RecipeType[]
 }
 

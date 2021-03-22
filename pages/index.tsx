@@ -17,7 +17,7 @@ export const getStaticProps = async() => {
   const res = await fetch(`https://internship-recipe-api.ckpd.co/recipes`, {
     headers: {
       'Content-Type': 'application/json',
-      'X-API-KEY': `${process.env.COOKPAD_SPRING_INTERN_APIKEY}`
+      'X-API-KEY': `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`
     },
   })
   const recipesObj = await res.json()

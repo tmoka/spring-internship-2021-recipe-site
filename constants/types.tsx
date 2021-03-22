@@ -10,6 +10,19 @@ export interface RecipeType {
   related_recipes: number[]
 }
 
+export interface RecipesType {
+  Recipes: RecipeType[]
+}
+
+export type LinksType = {
+  name: string
+}
+
+export interface APIResponseType {
+  links: LinksType
+  recipes: RecipesType
+}
+
 export type authorType = {
   user_name: string
 }

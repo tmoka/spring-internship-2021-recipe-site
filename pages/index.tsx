@@ -1,7 +1,7 @@
 import { FC } from "react"
 import Link from "next/link"
 import Header from "../components/Header"
-import { RecipeType } from "../constants/types"
+import { APIResponseType, RecipeType } from "../constants/types"
 
 type RecipeLinkType = {
   id: number
@@ -13,27 +13,37 @@ const RecipeLink = (props: RecipeLinkType) => (
   </Link>
 )
 
-export const getStaticProps = async() => {
+export const getStaticProps = async () => {
   const res = await fetch(`https://internship-recipe-api.ckpd.co/recipes`, {
     headers: {
-      'Content-Type': 'application/json',
-      'X-API-KEY': `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`
+      "Content-Type": "application/json",
+      "X-API-KEY": `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`,
     },
   })
-  const recipesObj = await res.json()
+  const json = await res.json()
+  const links = json?.links
+  const recipes = json?.recipes
   return {
     props: {
-      recipesObj
-    }
+      links,
+      recipes,
+    },
   }
 }
 
-
-const TopPage: FC = (props) => {
-  console.log(props)
+const TopPage = (props: APIResponseType) => {
+  const recipes = props.recipes
+  console.log(props.recipes)
   return (
     <div>
       <Header />
+      {recipes.map(recipe => (
+        <div>
+          <h1>{recipe.title}</h1>
+          <p>{recipe.description}</p>
+          <img src={recipe.image_url} />
+        </div>
+      ))}
       <RecipeLink id={2} />
     </div>
   )

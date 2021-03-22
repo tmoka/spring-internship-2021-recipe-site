@@ -2,6 +2,24 @@
 
 Cookpad Online Spring Internship 2021 のリポジトリです。インターンシップ参加者はこのリポジトリを fork してアプリケーションを実装してください。
 
+
+## TODOS
+### BASIC
+* 基本課題を終わらせる
+
+### ADVANCED
+* OGP対応
+* CSS in JS導入 & 各ライブラリの比較
+* マイフォルダ機能の実装
+* 無限スクロール
+* パフォーマンス最適化 web vitals(https://web.dev/vitals/)
+* GraphQL導入
+* レシピ投稿（レシピエディタ）
+* Poster View
+
+### OPTIONAL
+* その他改善
+
 ## Getting Started
 
 Next.js と TypeScript で開発環境をつくるところまでをこのドキュメントに記述します。Node.js は予めインストールされている前提です。yarn が使いたい人は npm を yarn に置き換えて読んでください。

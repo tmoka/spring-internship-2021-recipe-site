@@ -3,7 +3,7 @@ export interface RecipeType {
   id: number
   title: string
   description: string
-  image_url?: string
+  image_url: string | null
   author: authorType
   published_at: string
   ingredients: ingredientsType
@@ -11,7 +11,21 @@ export interface RecipeType {
 }
 
 export interface RecipesType {
-  map(arg0: (recipe: any) => any): string | number | boolean | {} | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | import("react").ReactNodeArray | import("react").ReactPortal | null | undefined
+  map(
+    arg0: (recipe: any) => any,
+  ):
+    | string
+    | number
+    | boolean
+    | {}
+    | import("react").ReactElement<
+        any,
+        string | import("react").JSXElementConstructor<any>
+      >
+    | import("react").ReactNodeArray
+    | import("react").ReactPortal
+    | null
+    | undefined
   Recipes: RecipeType[]
 }
 

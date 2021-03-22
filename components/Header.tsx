@@ -7,11 +7,10 @@ const linkStyle = {
 
 const Header: FC = () => (
   <div>
-    <Link href="/">
-      <a style={linkStyle}>Home</a>
-    </Link>
-    <Link href="/about">
-      <a style={linkStyle}>About</a>
+    <Link href='/'>
+      <a>
+        <h1>COOKING SITE</h1>
+      </a>
     </Link>
   </div>
 )

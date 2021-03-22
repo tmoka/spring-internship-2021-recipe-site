@@ -39,9 +39,13 @@ const TopPage = (props: APIResponseType) => {
       <Header />
       {recipes.map(recipe => (
         <div>
-          <h1>{recipe.title}</h1>
-          <p>{recipe.description}</p>
-          <img src={recipe.image_url} />
+          <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
+            <a>
+              <h1>{recipe.title}</h1>
+              <p>{recipe.description}</p>
+              <img src={recipe.image_url} />
+            </a>
+          </Link>
         </div>
       ))}
       <RecipeLink id={2} />

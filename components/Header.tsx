@@ -7,7 +7,7 @@ const linkStyle = {
 
 const Header: FC = () => (
   <div>
-    <Link href='/'>
+    <Link href="/">
       <a>
         <h1>COOKING SITE</h1>
       </a>

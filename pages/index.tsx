@@ -38,14 +38,18 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
             <div>
               <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
                 <a>
-                  <ImageWrapper>
-                    <Image
-                      src={recipe.image_url}
-                      alt={recipe.description}
-                      height={400}
-                      width={600}
-                    />
-                  </ImageWrapper>
+                  {recipe.image_url === null ? (
+                    <></>
+                  ) : (
+                    <ImageWrapper>
+                      <Image
+                        src={recipe.image_url}
+                        alt={recipe.description}
+                        height={400}
+                        width={600}
+                      />
+                    </ImageWrapper>
+                  )}
                   <TitleWrapper>
                     <h1>{recipe.title}</h1>
                     <p>{recipe.description}</p>
@@ -58,6 +62,16 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
           <p>レシピが見つかりませんでした。</p>
         )}
       </RecipeListContainer>
+      {!props.links?.prev ? (
+        <></>
+      ) : (
+        <Link href={"/?" + props.links.prev.split("?")[1]}>前のページ</Link>
+      )}
+      {!props.links?.next ? (
+        <></>
+      ) : (
+        <Link href={"/?" + props.links.next.split("?")[1]}>次のページ</Link>
+      )}
     </AppContainer>
   )
 }
@@ -108,6 +122,9 @@ const AppContainer = styled.div`
 
 const RecipeListContainer = styled.div`
   width: 60%;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
   background-color: yellow;
   margin: 0 auto;
 `

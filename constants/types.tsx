@@ -11,6 +11,7 @@ export interface RecipeType {
 }
 
 export interface RecipesType {
+  length: number
   map(
     arg0: (recipe: any) => any,
   ):
@@ -26,7 +27,7 @@ export interface RecipesType {
     | import("react").ReactPortal
     | null
     | undefined
-  Recipes: RecipeType[]
+  recipes: RecipeType[]
 }
 
 export type LinksType = {

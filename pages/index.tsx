@@ -13,10 +13,11 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
   const recipes = props.recipes
   console.log(props)
 
+
   return (
     <div>
       <Header />
-      {recipes.map(recipe => (
+      {recipes.length > 0 ? (recipes.map(recipe => (
         <div>
           <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
             <a>

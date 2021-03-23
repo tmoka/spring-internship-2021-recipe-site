@@ -5,6 +5,7 @@ import { GetServerSideProps } from "next"
 import styled from "styled-components"
 import Header from "../../components/Header"
 import Search from "../../components/Search"
+import { useRouter } from "next/router"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
@@ -21,6 +22,11 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
     date.getMinutes() +
     "分"
 
+  const router = useRouter()
+  const handleSubmit = (searchKeyword: string) => {
+    searchKeyword ? router.push(`/?keyword=${searchKeyword}`) : router.push("/")
+  }
+
   return (
     <AppContainer>
       <RecipeContainer>
@@ -28,6 +34,7 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
           <title>{props.title}</title>
         </Head>
         <Header />
+        <Search keyword={""} onSubmit={handleSubmit} />
         <h1>レシピ詳細</h1>
 
         {recipe && (

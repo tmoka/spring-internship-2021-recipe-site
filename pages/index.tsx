@@ -61,7 +61,6 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
         ) : (
           <p>レシピが見つかりませんでした。</p>
         )}
-      </RecipeListContainer>
       {!props.links?.prev ? (
         <></>
       ) : (
@@ -72,6 +71,7 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
       ) : (
         <Link href={"/?" + props.links.next.split("?")[1]}>次のページ</Link>
       )}
+      </RecipeListContainer>
     </AppContainer>
   )
 }
@@ -122,7 +122,7 @@ const AppContainer = styled.div`
 
 const RecipeListContainer = styled.div`
   width: 60%;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
   background-color: yellow;

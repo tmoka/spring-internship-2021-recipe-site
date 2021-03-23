@@ -2,48 +2,63 @@ import { FC } from "react"
 import { RecipeType } from "../../constants/types"
 import Head from "next/head"
 import { GetServerSideProps } from "next"
-import styled from 'styled-components'
-import Header from '../../components/Header'
+import styled from "styled-components"
+import Header from "../../components/Header"
+import Search from "../../components/Search"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
+  const date = new Date(recipe.published_at)
+  const dateString =
+    date.getFullYear() +
+    "年" +
+    (date.getMonth() + 1) +
+    "月" +
+    date.getDate() +
+    "日 " +
+    date.getHours() +
+    "時" +
+    date.getMinutes() +
+    "分"
 
   return (
     <AppContainer>
       <RecipeContainer>
-      <Head>
-        <title>{props.title}</title>
-      </Head>
-      <Header />
-      <h1>レシピ詳細</h1>
+        <Head>
+          <title>{props.title}</title>
+        </Head>
+        <Header />
+        <h1>レシピ詳細</h1>
 
-      {recipe && (
-        <main>
-          <h2>{recipe.title}</h2>
+        {recipe && (
+          <main>
+            <h2>{recipe.title}</h2>
 
-          {recipe.image_url && (
-            <img src={recipe.image_url} alt="レシピ画像" width="300" />
-          )}
+            {recipe.image_url && (
+              <img src={recipe.image_url} alt="レシピ画像" width="300" />
+            )}
+            <p>作者：{recipe.author.user_name}</p>
+            <p>更新日：{dateString}</p>
 
-          <p>{recipe.description}</p>
+            <p>{recipe.description}</p>
 
-          <h3>材料</h3>
-          <ol>
-            {recipe.ingredients.map((ing, i) => (
-              <li key={i}>
-                {ing.name} : {ing.quantity}
-              </li>
-            ))}
-          </ol>
+            <h3>材料</h3>
+            <ol>
+              {recipe.ingredients.map((ing, i) => (
+                <li key={i}>
+                  {ing.name} : {ing.quantity}
+                </li>
+              ))}
+            </ol>
 
-          <h3>手順</h3>
-          <ol>
-            {recipe.steps.map((step, i) => (
-              <li key={i}>{step}</li>
-            ))}
-          </ol>
-        </main>
-      )}
+            <h3>手順</h3>
+            <ol>
+              {recipe.steps.map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ol>
+          </main>
+        )}
       </RecipeContainer>
     </AppContainer>
   )

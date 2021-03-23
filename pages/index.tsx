@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import Head from "next/head"
 import Header from "../components/Header"
 import Search from "../components/Search"
 import { APIResponseType, LinksType, RecipesType } from "../constants/types"
@@ -29,50 +30,59 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
   }
 
   return (
-    <AppContainer>
-      <RecipeListContainer>
-        <Header />
-        <Search keyword={""} onSubmit={handleSubmit} />
-        {recipes ? (
-          recipes.map(recipe => (
-            <div>
-              <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
-                <a>
-                  {recipe.image_url === null ? (
-                    <></>
-                  ) : (
-                    <ImageWrapper>
-                      <Image
-                        src={recipe.image_url}
-                        alt={recipe.description}
-                        height={400}
-                        width={600}
-                      />
-                    </ImageWrapper>
-                  )}
-                  <TitleWrapper>
-                    <h1>{recipe.title}</h1>
-                    <p>{recipe.description}</p>
-                  </TitleWrapper>
-                </a>
-              </Link>
-            </div>
-          ))
-        ) : (
-          <p>レシピが見つかりませんでした。</p>
-        )}
-      {!props.links?.prev ? (
-        <></>
-      ) : (
-        <Link href={"/?" + props.links.prev.split("?")[1]}>前のページ</Link>
-      )}
-      {!props.links?.next ? (
-        <></>
-      ) : (
-        <Link href={"/?" + props.links.next.split("?")[1]}>次のページ</Link>
-      )}
-      </RecipeListContainer>
-    </AppContainer>
+    <>
+      <Head>
+        <title>Cooking Site</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        ></meta>
+      </Head>
+      <AppContainer>
+        <RecipeListContainer>
+          <Header />
+          <Search keyword={""} onSubmit={handleSubmit} />
+          {recipes ? (
+            recipes.map(recipe => (
+              <div>
+                <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
+                  <a>
+                    {recipe.image_url === null ? (
+                      <></>
+                    ) : (
+                      <ImageWrapper>
+                        <Image
+                          src={recipe.image_url}
+                          alt={recipe.description}
+                          height={400}
+                          width={600}
+                        />
+                      </ImageWrapper>
+                    )}
+                    <TitleWrapper>
+                      <h1>{recipe.title}</h1>
+                      <p>{recipe.description}</p>
+                    </TitleWrapper>
+                  </a>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>レシピが見つかりませんでした。</p>
+          )}
+          {!props.links?.prev ? (
+            <></>
+          ) : (
+            <Link href={"/?" + props.links.prev.split("?")[1]}>前のページ</Link>
+          )}
+          {!props.links?.next ? (
+            <></>
+          ) : (
+            <Link href={"/?" + props.links.next.split("?")[1]}>次のページ</Link>
+          )}
+        </RecipeListContainer>
+      </AppContainer>
+    </>
   )
 }
 
@@ -122,7 +132,7 @@ const AppContainer = styled.div`
 
 const RecipeListContainer = styled.div`
   width: 60%;
-  @media (max-width: 768px) {
+  @media screen and (max-width: 500px) {
     width: 100%;
   }
   background-color: yellow;

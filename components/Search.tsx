@@ -1,17 +1,41 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import styled from "styled-components"
 import * as color from "../constants/colors"
+import { useRouter } from "next/router"
 
 export type SearchProps = {
   keyword: string
+  onSubmit: (keyword: string) => void
 }
 
-const Search: FC = () => {
+const Search: FC<SearchProps> = (props: SearchProps) => {
+  const router = useRouter()
+  const [searchKeyword, setSearchKeyword] = useState("")
+  console.log(searchKeyword)
+
+  const clickButton = () => {
+    router.push({
+      pathname: "/", //URL
+      query: { keyword: searchKeyword }, //検索クエリ
+    })
+  }
+
   return (
     <SearchContainer>
-      <form>
-        <Input />
-        <ConfirmButton>検索</ConfirmButton>
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          props.onSubmit(searchKeyword)
+        }}
+      >
+        <Input
+          type="text"
+          placeholder="ここに入力"
+          value={searchKeyword}
+          onChange={e => setSearchKeyword(e.target.value)}
+        />
+
+        <ConfirmButton onClick={clickButton}>検索</ConfirmButton>
       </form>
     </SearchContainer>
   )
@@ -25,8 +49,9 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   display: block;
-  width: 80%;
+  width: 70%;
   margin-bottom: 8px;
+  margin-right: 10px;
   border: solid 1px ${color.Silver};
   border-radius: 3px;
   padding: 6px 8px;
@@ -42,7 +67,7 @@ const Input = styled.input`
 `
 
 export const Button = styled.button.attrs({ type: "button" })`
-  width: 10%;
+  width: 20%;
   border: solid 1px ${color.Silver};
   border-radius: 3px;
   padding: 6px 8px;

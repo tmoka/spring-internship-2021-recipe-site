@@ -1,9 +1,11 @@
 import Link from "next/link"
+import Image from "next/image"
 import Header from "../components/Header"
 import Search from "../components/Search"
 import { APIResponseType, LinksType, RecipesType } from "../constants/types"
 import { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
+import styled from "styled-components"
 
 type Props = {
   recipes: RecipesType
@@ -27,25 +29,36 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
   }
 
   return (
-    <div>
-      <Header />
-      <Search keyword={""} onSubmit={handleSubmit} />
-      {recipes ? (
-        recipes.map(recipe => (
-          <div>
-            <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
-              <a>
-                <h1>{recipe.title}</h1>
-                <p>{recipe.description}</p>
-                <img src={recipe.image_url} />
-              </a>
-            </Link>
-          </div>
-        ))
-      ) : (
-        <p>レシピが見つかりませんでした。</p>
-      )}
-    </div>
+    <AppContainer>
+      <RecipeListContainer>
+        <Header />
+        <Search keyword={""} onSubmit={handleSubmit} />
+        {recipes ? (
+          recipes.map(recipe => (
+            <div>
+              <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
+                <a>
+                  <ImageWrapper>
+                    <Image
+                      src={recipe.image_url}
+                      alt={recipe.description}
+                      height={400}
+                      width={600}
+                    />
+                  </ImageWrapper>
+                  <TitleWrapper>
+                    <h1>{recipe.title}</h1>
+                    <p>{recipe.description}</p>
+                  </TitleWrapper>
+                </a>
+              </Link>
+            </div>
+          ))
+        ) : (
+          <p>レシピが見つかりませんでした。</p>
+        )}
+      </RecipeListContainer>
+    </AppContainer>
   )
 }
 
@@ -88,5 +101,27 @@ export const getServerSideProps: GetServerSideProps = async context => {
     },
   }
 }
+const AppContainer = styled.div`
+  width: 100%;
+  background-color: green;
+`
+
+const RecipeListContainer = styled.div`
+  width: 60%;
+  background-color: yellow;
+  margin: 0 auto;
+`
+
+const ImageWrapper = styled.div`
+  width: 80%;
+  height: 80%;
+  display: inline-block;
+`
+
+const TitleWrapper = styled.div`
+  width: 80%;
+  height: 80%;
+  display: inline-block;
+`
 
 export default TopPage

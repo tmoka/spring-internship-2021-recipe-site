@@ -51,6 +51,7 @@ const Input = styled.input`
   display: block;
   width: 70%;
   margin-bottom: 8px;
+  margin-left: 10px;
   margin-right: 10px;
   border: solid 1px ${color.Silver};
   border-radius: 3px;

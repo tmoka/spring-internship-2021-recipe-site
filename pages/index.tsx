@@ -65,10 +65,11 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
                     </TitleWrapper>
                   </a>
                 </Link>
+                <hr />
               </div>
             ))
           ) : (
-            <p>レシピが見つかりませんでした。</p>
+            <p>お探しのレシピは見つかりませんでした。</p>
           )}
           {!props.links?.prev ? (
             <></>
@@ -127,27 +128,30 @@ export const getServerSideProps: GetServerSideProps = async context => {
 }
 const AppContainer = styled.div`
   width: 100%;
-  background-color: green;
+  background-color: #f0f0f0;
 `
 
 const RecipeListContainer = styled.div`
   width: 60%;
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 768px) {
     width: 100%;
   }
-  background-color: yellow;
+  background-color: white;
   margin: 0 auto;
 `
 
 const ImageWrapper = styled.div`
   width: 80%;
   height: 80%;
+  margin: 0 auto;
   display: inline-block;
 `
 
 const TitleWrapper = styled.div`
-  width: 80%;
+  width: 100%;
   height: 80%;
+  margin: 0 auto;
+  text-align: center;
   display: inline-block;
 `
 

@@ -1,18 +1,81 @@
 import { FC } from "react"
-import { useRouter } from "next/router"
 import { RecipeType } from "../../constants/types"
 import Head from "next/head"
+import { GetServerSideProps } from "next"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
-  const router = useRouter()
+  const recipe: RecipeType = props
+
   return (
     <div>
       <Head>
         <title>{props.title}</title>
       </Head>
-      <h1>Recipe ID: {router.query.id}</h1>
+      <h1>レシピ詳細</h1>
+
+      {recipe && (
+        <main>
+          <h2>{recipe.title}</h2>
+
+          {recipe.image_url && (
+            <img src={recipe.image_url} alt="レシピ画像" width="300" />
+          )}
+
+          <p>{recipe.description}</p>
+
+          <h3>材料</h3>
+          <ol>
+            {recipe.ingredients.map((ing, i) => (
+              <li key={i}>
+                {ing.name} : {ing.quantity}
+              </li>
+            ))}
+          </ol>
+
+          <h3>手順</h3>
+          <ol>
+            {recipe.steps.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ol>
+        </main>
+      )}
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const id = Number(context.params?.id)
+  if (id === 0 || isNaN(id)) {
+    return {
+      notFound: true,
+    }
+  } else {
+    const res = await fetch(
+      `https://internship-recipe-api.ckpd.co/recipes/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`,
+        },
+      },
+    )
+    const recipeJson = await res.json()
+    return {
+      props: {
+        id,
+        title: recipeJson.title,
+        description: recipeJson.description,
+        image_url: recipeJson.image_url,
+        author: recipeJson.author,
+        published_at: recipeJson.published_at,
+        steps: recipeJson.steps,
+        ingredients: recipeJson.ingredients,
+        related_recipes: recipeJson.related_recipes,
+      },
+    }
+  }
 }
 
 export default RecipePage

@@ -30,7 +30,7 @@ const Search: FC<SearchProps> = (props: SearchProps) => {
       >
         <Input
           type="text"
-          placeholder="ここに入力"
+          placeholder="検索したいワードを入力してください"
           value={searchKeyword}
           onChange={e => setSearchKeyword(e.target.value)}
         />
@@ -49,7 +49,7 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   display: block;
-  width: 70%;
+  width: 66%;
   margin-bottom: 8px;
   margin-left: 10px;
   margin-right: 10px;
@@ -68,7 +68,7 @@ const Input = styled.input`
 `
 
 export const Button = styled.button.attrs({ type: "button" })`
-  width: 20%;
+  width: 16%;
   border: solid 1px ${color.Silver};
   border-radius: 3px;
   padding: 6px 8px;

@@ -6,7 +6,8 @@ export interface RecipeType {
   image_url: string | null
   author: authorType
   published_at: string
-  ingredients: ingredientsType
+  steps: string[]
+  ingredients: ingredientType[]
   related_recipes: number[]
 }
 
@@ -44,15 +45,7 @@ export type authorType = {
   user_name: string
 }
 
-export type stepsType = {
-  steps: string[]
-}
-
 export type ingredientType = {
   name: string
   quantity: string
-}
-
-export type ingredientsType = {
-  ingredients: ingredientType[]
 }

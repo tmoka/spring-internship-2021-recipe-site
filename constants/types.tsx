@@ -30,7 +30,8 @@ export interface RecipesType {
 }
 
 export type LinksType = {
-  name: string
+  prev: string | null
+  next: string | null
 }
 
 export interface APIResponseType {

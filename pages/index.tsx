@@ -15,15 +15,15 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
   console.log(props)
   const router = useRouter()
 
-  const composePageQuery = (pageNumber: number) =>
-    pageNumber === 0 ? "" : `?page=${pageNumber}`
-  const composeSearchKeywordQuery = (searchKeyword: string) =>
-    searchKeyword === "" ? "" : `?keyword=${encodeURI(searchKeyword)}`
+  //const composePageQuery = (pageNumber: number) =>
+  //   pageNumber === 0 ? "" : `?page=${pageNumber}`
+  // const composeSearchKeywordQuery = (searchKeyword: string) =>
+  //  searchKeyword === "" ? "" : `?keyword=${encodeURI(searchKeyword)}`
 
-  const composeQuery = (pageNumber?: number, searchKeyword?: string) => {}
+  // const composeQuery = (pageNumber?: number, searchKeyword?: string) => {}
 
   const handleSubmit = (searchKeyword: string) => {
-    router.push(`/?search=${searchKeyword}`)
+    router.push(`/?keyword=${searchKeyword}`)
   }
 
   return (

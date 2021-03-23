@@ -141,10 +141,10 @@ const RecipeListContainer = styled.div`
 `
 
 const ImageWrapper = styled.div`
-  width: 80%;
-  height: 80%;
-  margin: 0 auto;
-  display: inline-block;
+  //width: 80%;
+  //height: 80%;
+  //margin: 0 auto;
+  //display: inline-block;
 `
 
 const TitleWrapper = styled.div`

@@ -2,15 +2,19 @@ import { FC } from "react"
 import { RecipeType } from "../../constants/types"
 import Head from "next/head"
 import { GetServerSideProps } from "next"
+import styled from 'styled-components'
+import Header from '../../components/Header'
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
 
   return (
-    <div>
+    <AppContainer>
+      <RecipeContainer>
       <Head>
         <title>{props.title}</title>
       </Head>
+      <Header />
       <h1>レシピ詳細</h1>
 
       {recipe && (
@@ -40,7 +44,8 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
           </ol>
         </main>
       )}
-    </div>
+      </RecipeContainer>
+    </AppContainer>
   )
 }
 
@@ -77,5 +82,19 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
   }
 }
+
+const AppContainer = styled.div`
+  width: 100%;
+  background-color: #f0f0f0;
+`
+
+const RecipeContainer = styled.div`
+  width: 60%;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  background-color: white;
+  margin: 0 auto;
+`
 
 export default RecipePage

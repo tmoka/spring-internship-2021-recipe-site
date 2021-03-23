@@ -32,6 +32,28 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
       <RecipeContainer>
         <Head>
           <title>{props.title}</title>
+          <meta property="og:title" content={props.title} />
+          <meta property="og:type" content="article" />
+          <meta
+            property="og:url"
+            content={
+              "https://internship-recipe-api.ckpd.co/recipes/" + props.id
+            }
+          />
+          <meta
+            property="og:image"
+            content={props.image_url === null ? "" : props.image_url}
+          />
+          <meta property="og:site_name" content="Cooking Site" />
+          <meta property="og:country-name" content="Japan" />
+          <meta property="og:description" content={props.description} />
+          <meta property="og:article:published_time" content={props.published_at} />
+          <meta property="og:article:author" content={props.author.user_name} />
+          <meta property="og:article:section" content="cooking" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={props.title} />
+          <meta name="twitter:description" content={props.description} />
+
         </Head>
         <Header />
         <Search keyword={""} onSubmit={handleSubmit} />
@@ -45,7 +67,7 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
               <img src={recipe.image_url} alt="レシピ画像" width="300" />
             )}
             <p>作者：{recipe.author.user_name}</p>
-            <p>更新日：{dateString}</p>
+            <p>作成日時：{dateString}</p>
 
             <p>{recipe.description}</p>
 

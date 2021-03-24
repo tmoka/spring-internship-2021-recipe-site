@@ -1,4 +1,4 @@
-import { FC } from "react"
+import React, { FC } from "react"
 import { RecipeType } from "../../constants/types"
 import Head from "next/head"
 import { GetServerSideProps } from "next"
@@ -6,6 +6,7 @@ import styled from "styled-components"
 import Header from "../../components/Header"
 import Search from "../../components/Search"
 import { useRouter } from "next/router"
+import Indexeddb from "../../db/indexeddb"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
@@ -25,6 +26,16 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const router = useRouter()
   const handleSubmit = (searchKeyword: string) => {
     searchKeyword ? router.push(`/?keyword=${searchKeyword}`) : router.push("/")
+  }
+
+  const addFavClick = () => {
+    const runIndexDb = async () => {
+      const database = new Indexeddb("myFolder")
+      await database.createObjectStore(["favoredRecipeTable"])
+      await database.putValue("favoredRecipeTable", recipe)
+      await console.log(database)
+    }
+    runIndexDb()
   }
 
   return (
@@ -70,6 +81,8 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
             )}
             <p>作者：{recipe.author.user_name}</p>
             <p>作成日時：{dateString}</p>
+
+            <button onClick={addFavClick}>お気に入りに登録する</button>
 
             <p>{recipe.description}</p>
 

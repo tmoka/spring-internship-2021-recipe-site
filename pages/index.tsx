@@ -18,13 +18,6 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
   console.log(props)
   const router = useRouter()
 
-  //const composePageQuery = (pageNumber: number) =>
-  //   pageNumber === 0 ? "" : `?page=${pageNumber}`
-  // const composeSearchKeywordQuery = (searchKeyword: string) =>
-  //  searchKeyword === "" ? "" : `?keyword=${encodeURI(searchKeyword)}`
-
-  // const composeQuery = (pageNumber?: number, searchKeyword?: string) => {}
-
   const handleSubmit = (searchKeyword: string) => {
     router.push(`/?keyword=${searchKeyword}`)
   }
@@ -41,6 +34,11 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
       <AppContainer>
         <RecipeListContainer>
           <Header />
+          <Link href="/myfolder">
+            <a>
+              <button>マイフォルダ</button>
+            </a>
+          </Link>
           <Search keyword={""} onSubmit={handleSubmit} />
           {recipes ? (
             recipes.map(recipe => (

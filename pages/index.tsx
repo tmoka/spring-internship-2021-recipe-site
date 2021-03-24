@@ -93,12 +93,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const page = Number(context.query.page)
   const pageNumber = Number.isNaN(page) ? 1 : page
   const searchKeywordOrArray =
-    context.query.keyword === undefined ? "" : context.query.keyword
+    typeof context.query.keyword === "undefined" ? "" : context.query.keyword
   const encodedKeyword = Array.isArray(searchKeywordOrArray)
     ? searchKeywordOrArray.forEach(searchKeyword => encodeURI(searchKeyword))
     : encodeURI(searchKeywordOrArray)
 
-  //const endpointAndQuery = ``
   const endpointAndQuery =
     encodedKeyword === ""
       ? `/recipes\?page=${pageNumber}`
@@ -111,7 +110,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     },
   })
   const json = await res.json()
-  if (json?.recipes === undefined) {
+  if (typeof json?.recipes === "undefined") {
     return {
       props: {},
     }

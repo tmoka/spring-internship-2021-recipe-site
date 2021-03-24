@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { RecipeType } from "../../constants/types"
 import Head from "next/head"
 import { GetServerSideProps } from "next"
@@ -28,12 +28,21 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
     searchKeyword ? router.push(`/?keyword=${searchKeyword}`) : router.push("/")
   }
 
-  const addFavClick = () => {
+  const [isFavored, setIsFavored] = useState(false)
+
+  const handleFavClick = () => {
     const runIndexDb = async () => {
       const database = new Indexeddb("myFolder")
       await database.createObjectStore(["favoredRecipeTable"])
-      await database.putValue("favoredRecipeTable", recipe)
-      await console.log(database)
+      const value = await database.getValue("favoredRecipeTable", recipe.id)
+
+      if (typeof value === "undefined") {
+        await database.putValue("favoredRecipeTable", recipe)
+        setIsFavored(true)
+      } else {
+        await database.deleteValue("favoredRecipeTable", recipe.id)
+        setIsFavored(false)
+      }
     }
     runIndexDb()
   }
@@ -82,7 +91,9 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
             <p>作者：{recipe.author.user_name}</p>
             <p>作成日時：{dateString}</p>
 
-            <button onClick={addFavClick}>お気に入りに登録する</button>
+            <button onClick={handleFavClick}>
+              {isFavored ? "お気に入りから外す" : "お気に入りに登録する"}
+            </button>
 
             <p>{recipe.description}</p>
 

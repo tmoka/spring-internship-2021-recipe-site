@@ -1,56 +1,7 @@
-import { RESTDataSource, RequestOptions } from "apollo-datasource-rest"
 import { ApolloServer } from "apollo-server-micro"
 import typeDefs from "../../api/schema"
-
-class RecipeAPI extends RESTDataSource {
-  constructor() {
-    super()
-    this.baseURL = "https://internship-recipe-api.ckpd.co/"
-  }
-
-  willSendRequest(request: RequestOptions) {
-    request.headers.set(
-      "X-Api-Key",
-      process.env.NEXT_PUBLIC_RECIPES_APIKEY as string,
-    )
-  }
-
-  async getRecipeById(id: number) {
-    return this.get(`recipes/${id}`)
-  }
-
-  async getRecipesByPageAndKeyword(page?: number, keyword?: string) {
-    const response =
-      keyword === null
-        ? this.get(`recipes?page=${page}&keyword=${keyword}`)
-        : this.get(`search?page=${page}&keyword=${keyword}`)
-    return response
-  }
-}
-
-const Query = {
-  recipes: async (
-    _: any,
-    query: any,
-    { dataSources }: { dataSources: { api: RecipeAPI } },
-  ): Promise<any> => {
-    return dataSources.api.getRecipesByPageAndKeyword(
-      query.page ? query.page : 1,
-      query.keyword ? query.keyword : null,
-    )
-  },
-  recipe: async (
-    _: any,
-    query: any,
-    { dataSources }: { dataSources: { api: RecipeAPI } },
-  ): Promise<any> => {
-    return dataSources.api.getRecipeById(query.id)
-  },
-}
-
-export const resolvers = {
-  Query,
-}
+import RecipeAPI from "../../api/recipeAPI"
+import { resolvers } from "../../api/resolver"
 
 const apolloServer = new ApolloServer({
   typeDefs,

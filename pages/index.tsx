@@ -7,9 +7,6 @@ import { APIResponseType, LinksType, RecipesType } from "../constants/types"
 import { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import styled from "styled-components"
-import { gql } from "@apollo/client"
-import client from "../apollo-client"
-import query from "./api/recipes_page"
 import { Button } from "../components/Button"
 
 type Props = {

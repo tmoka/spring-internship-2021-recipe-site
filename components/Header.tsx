@@ -7,7 +7,7 @@ const Header: FC = () => (
   <HeaderContainer>
     <Link href="/">
       <a>
-        <h1>COOKING SITE</h1>
+        <HeaderLogo>🍙COOKING SITE</HeaderLogo>
       </a>
     </Link>
   </HeaderContainer>
@@ -16,5 +16,10 @@ const Header: FC = () => (
 export default Header
 
 const HeaderContainer = styled.div`
-  background-color: ${color.Gray};
+  background-color: ${color.CookpadOrange};
+`
+
+const HeaderLogo = styled.h1`
+  margin-left: 10px;
+  font-weight: bold;
 `

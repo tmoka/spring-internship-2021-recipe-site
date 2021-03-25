@@ -43,6 +43,11 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
               <Button>マイフォルダ</Button>
             </a>
           </Link>
+          <Link href="/create">
+            <a>
+              <Button>新規レシピ</Button>
+            </a>
+          </Link>
           {recipes ? (
             recipes.map(recipe => (
               <div>

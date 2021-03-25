@@ -1,4 +1,5 @@
-import { gql, Config } from "apollo-server-micro"
+import { gql } from "@apollo/client"
+import { Config } from "apollo-server-micro"
 
 const typeDefs: Config["typeDefs"] = gql`
   type Query {

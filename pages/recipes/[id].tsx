@@ -9,7 +9,7 @@ import { useRouter } from "next/router"
 import Indexeddb from "../../db/indexeddb"
 import Link from "next/link"
 import { Button } from "../../components/Button"
-import { gql } from "apollo-server-micro"
+import { gql } from "@apollo/client"
 import client from "../../api/apollo-client"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
@@ -94,6 +94,11 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
         <Link href="/myfolder">
           <a>
             <Button>マイフォルダ</Button>
+          </a>
+        </Link>
+        <Link href="/create">
+          <a>
+            <Button>新規レシピ</Button>
           </a>
         </Link>
         <h1>レシピ詳細</h1>

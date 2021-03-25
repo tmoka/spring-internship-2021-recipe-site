@@ -4,6 +4,7 @@ import Header from "../../components/Header"
 import { gql } from "@apollo/client"
 import { useMutation } from "@apollo/client"
 import { ConfirmButton } from "../../components/Button"
+import { RecipeInputType } from "../../constants/types"
 
 const PostRecipe: FC = props => {
   const [formState, setFormState] = useState({
@@ -12,32 +13,74 @@ const PostRecipe: FC = props => {
   })
   console.log(formState)
 
-  const POST_RECIPE = gql`
-    mutation PostRecipe($title: String, $description: String, $author:AuthorInput,$image_url:String, $ingredients:[IngredientInput], $steps:[String]) {
-      post(title: $title, description: $description, author:$author,image_url:$image_url, ingredients:$ingredients,steps:$steps) {
-
+  // TODO: GraphQLに対応
+  /*const POST_RECIPE = gql`
+    mutation PostRecipe(
+      $title: String
+      $description: String
+      $author: AuthorInput
+      $image_url: String
+      $ingredients: [IngredientInput]
+      $steps: [String]
+    ) {
+      post(
+        title: $title
+        description: $description
+        author: $author
+        image_url: $image_url
+        ingredients: $ingredients
+        steps: $steps
+      ) {
         title
         description
         author {
-            user_name
+          user_name
         }
         image_url
         ingredients {
-            name
-            quantity
+          name
+          quantity
         }
         steps
       }
     }
   `
-  const [postRecipe, { data }] = useMutation(POST_RECIPE)
+  */
+  //const [postRecipe, { data }] = useMutation(POST_RECIPE)
   /*const [createRecipe] = useMutation(mutation, {
     variables: {
       description: formState.description,
       title: formState.title,
     },
   })*/
-  console.log(data)
+  //console.log(data)
+
+  const postRecipeToAPI = (data: RecipeInputType) => {
+    const res = fetch("https://internship-recipe-api.ckpd.co/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`,
+      },
+      body: JSON.stringify(data),
+    })
+  }
+
+  const data: RecipeInputType = {
+    title: formState.title,
+    description: formState.description,
+    image_url: null,
+    ingredients: [
+      { name: "人参", quantity: "1本" },
+      { name: "じゃがいも", quantity: "3個" },
+      { name: "カレールー", quantity: "一箱" },
+    ],
+    steps: [
+      "野菜を切る",
+      "じっくりに煮込む",
+      "カレールーを入れてさらに煮込んだらできあがり",
+    ],
+  }
 
   return (
     <div>
@@ -47,17 +90,25 @@ const PostRecipe: FC = props => {
         method="POST"
         onSubmit={e => {
           e.preventDefault()
-          postRecipe({
+          /*postRecipe({
             variables: {
               title: formState.title,
               description: formState.description,
-              author: {user_name:"www"},
-              image_url: "",
-              ingredients: [{name:"じゃがいも",quantity:"いっぱい"}],
-              steps: ["皮を剥きます","食べます"]
+              author: { user_name: "西田幾多郎" },
+              Image_url: null,
+              ingredients: [
+                { name: "人参", quantity: "1本" },
+                { name: "じゃがいも", quantity: "3個" },
+                { name: "カレールー", quantity: "一箱" },
+              ],
+              steps: [
+                "野菜を切る",
+                "じっくりに煮込む",
+                "カレールーを入れてさらに煮込んだらできあがり",
+              ],
             },
           })
-          console.log(data)
+          console.log(data)*/
         }}
       >
         <Input
@@ -83,7 +134,15 @@ const PostRecipe: FC = props => {
           type="text"
           placeholder="レシピの説明"
         />
-        <button type="submit">追加</button>
+        <ConfirmButton
+          //type="submit"
+          onClick={() => {
+            postRecipeToAPI(data)
+            console.log(JSON.stringify(data))
+          }}
+        >
+          投稿する
+        </ConfirmButton>
       </form>
     </div>
   )

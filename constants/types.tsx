@@ -49,3 +49,11 @@ export type ingredientType = {
   name: string
   quantity: string
 }
+
+export interface RecipeInputType {
+  title: string
+  description: string
+  image_url: string | null
+  steps: string[]
+  ingredients: ingredientType[]
+}

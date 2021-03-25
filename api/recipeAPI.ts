@@ -29,11 +29,11 @@ class RecipeAPI extends RESTDataSource {
     title: string,
     description: string,
     author: authorType,
-    image_url: string,
+    image_url: string | null,
     steps: string[],
     ingredients: ingredientType[],
   ) {
-    return this.post("recipes", {
+    return this.post("recipes/", {
       title,
       description,
       author,

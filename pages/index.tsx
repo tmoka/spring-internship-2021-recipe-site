@@ -8,8 +8,7 @@ import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import styled from "styled-components"
 import { Button } from "../components/Button"
-import { ApolloClient } from "apollo-boost"
-import { gql, Config } from "apollo-server-micro"
+import { gql } from "apollo-server-micro"
 import client from "../api/apollo-client"
 
 type Props = {

@@ -8,7 +8,9 @@ import Search from "../../components/Search"
 import { useRouter } from "next/router"
 import Indexeddb from "../../db/indexeddb"
 import Link from "next/link"
-import { Button, ConfirmButton } from "../../components/Button"
+import { Button } from "../../components/Button"
+import { gql } from "apollo-server-micro"
+import client from "../../api/apollo-client"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
@@ -141,29 +143,33 @@ export const getServerSideProps: GetServerSideProps = async context => {
       notFound: true,
     }
   } else {
-    const res = await fetch(
-      `https://internship-recipe-api.ckpd.co/recipes/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`,
-        },
-      },
-    )
-    const recipeJson = await res.json()
+    const query = gql`
+      query Recipe($id: ID!) {
+        recipe(id: $id) {
+          id
+          title
+          description
+          image_url
+          author {
+            user_name
+          }
+          published_at
+          ingredients {
+            name
+            quantity
+          }
+          steps
+          related_recipes
+        }
+      }
+    `
+    const res = await client.query<any>({
+      query,
+      variables: { id: id },
+    })
+    const recipe: RecipeType = res.data.recipe
     return {
-      props: {
-        id,
-        title: recipeJson.title,
-        description: recipeJson.description,
-        image_url: recipeJson.image_url,
-        author: recipeJson.author,
-        published_at: recipeJson.published_at,
-        steps: recipeJson.steps,
-        ingredients: recipeJson.ingredients,
-        related_recipes: recipeJson.related_recipes,
-      },
+      props: recipe,
     }
   }
 }

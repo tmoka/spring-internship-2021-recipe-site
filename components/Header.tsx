@@ -3,10 +3,6 @@ import { FC } from "react"
 import styled from "styled-components"
 import * as color from "../constants/colors"
 
-const linkStyle = {
-  marginRight: 15,
-}
-
 const Header: FC = () => (
   <HeaderContainer>
     <Link href="/">

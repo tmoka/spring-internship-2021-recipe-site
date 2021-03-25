@@ -1,4 +1,3 @@
-import { RecipeType } from "../../constants/types"
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest"
 import { ApolloServer } from "apollo-server-micro"
 import typeDefs from "../../api/schema"
@@ -18,15 +17,28 @@ class RecipeAPI extends RESTDataSource {
 
   async getRecipeById(id: number) {
     return this.get(`recipes/${id}`)
-    //const response = await this.get("recipes/${id}")
-    //return this.recipeReducer(response[0])
+  }
+
+  async getRecipesByPageAndKeyword(page?: number, keyword?: string) {
+    const response =
+      keyword === null
+        ? this.get(`recipes?page=${page}&keyword=${keyword}`)
+        : this.get(`search?page=${page}&keyword=${keyword}`)
+    return response
   }
 }
 
 const Query = {
-  /*recipes: async (_: any, query, { dataSources }: { dataSources: { api: CookpadAPI } }): Promise<RecipesPage> => {
-    return dataSources.api.getRecipes(query.page ? query.page : 1, query.keyword ? query.keyword : null);
-  },*/
+  recipes: async (
+    _: any,
+    query: any,
+    { dataSources }: { dataSources: { api: RecipeAPI } },
+  ): Promise<any> => {
+    return dataSources.api.getRecipesByPageAndKeyword(
+      query.page ? query.page : 1,
+      query.keyword ? query.keyword : null,
+    )
+  },
   recipe: async (
     _: any,
     query: any,
@@ -34,9 +46,6 @@ const Query = {
   ): Promise<any> => {
     return dataSources.api.getRecipeById(query.id)
   },
-  /*recipesByIds: async (_: any, query, { dataSources }: { dataSources: { api: CookpadAPI } }): Promise<Recipe[]> => {
-    return dataSources.api.getRecipesByIds(query.ids);
-},*/
 }
 
 export const resolvers = {
@@ -50,8 +59,6 @@ const apolloServer = new ApolloServer({
     api: new RecipeAPI(),
   }),
 })
-
-//const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
 export const config = {
   api: {

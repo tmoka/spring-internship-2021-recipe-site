@@ -40,12 +40,14 @@ const MyFolder: FC = props => {
               <div>
                 <h1>{recipe.title}</h1>
                 <p>{recipe.description}</p>
-                <Image
-                  src={recipe.image_url}
-                  alt={recipe.description}
-                  height={400}
-                  width={600}
-                />
+                {recipe.image_url && (
+                  <Image
+                    src={recipe.image_url}
+                    alt={recipe.description}
+                    height={400}
+                    width={600}
+                  />
+                )}
               </div>
             </a>
           </Link>

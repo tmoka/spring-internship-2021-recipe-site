@@ -1,4 +1,5 @@
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest"
+import { authorType, ingredientType, RecipeType } from "../constants/types"
 class RecipeAPI extends RESTDataSource {
   constructor() {
     super()
@@ -22,6 +23,24 @@ class RecipeAPI extends RESTDataSource {
         ? this.get(`recipes?page=${page}&keyword=${keyword}`)
         : this.get(`search?page=${page}&keyword=${keyword}`)
     return response
+  }
+
+  async postRecipe(
+    title: string,
+    description: string,
+    author: authorType,
+    image_url: string,
+    steps: string[],
+    ingredients: ingredientType[],
+  ) {
+    return this.post("recipes", {
+      title,
+      description,
+      author,
+      image_url,
+      steps,
+      ingredients,
+    })
   }
 }
 

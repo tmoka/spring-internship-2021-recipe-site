@@ -1,3 +1,4 @@
+import { RecipeType } from "../constants/types"
 import RecipeAPI from "./recipeAPI"
 
 const Query = {
@@ -20,6 +21,17 @@ const Query = {
   },
 }
 
+const Mutation = {
+  post: async (
+    _: any,
+    { title, description, author, image_url, steps, ingredients }: RecipeType,
+  ): Promise<any> => {
+    const recipe = { title, description, author, image_url, steps, ingredients }
+    return recipe
+  },
+}
+
 export const resolvers = {
   Query,
+  Mutation,
 }

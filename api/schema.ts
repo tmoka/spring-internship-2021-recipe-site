@@ -6,15 +6,26 @@ const typeDefs: Config["typeDefs"] = gql`
     recipe(id: ID!): Recipe
   }
 
+  type Mutation {
+    post(
+      title: String
+      description: String
+      author: AuthorInput
+      image_url: String
+      steps: [String]
+      ingredients: [IngredientInput]
+    ): Recipe
+  }
+
   type Recipe {
-    id: ID!
-    title: String!
-    description: String!
-    author: Author!
+    id: ID
+    title: String
+    description: String
+    author: Author
     image_url: String
-    published_at: String!
-    steps: [String]!
-    ingredients: [Ingredient]!
+    published_at: String
+    steps: [String]
+    ingredients: [Ingredient]
     related_recipes: [Int]
   }
 
@@ -35,6 +46,15 @@ const typeDefs: Config["typeDefs"] = gql`
   type APIResponse {
     recipes: [Recipe]
     links: Links
+  }
+
+  input AuthorInput {
+    user_name: String
+  }
+
+  input IngredientInput {
+    name: String
+    quantity: String
   }
 `
 

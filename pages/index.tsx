@@ -46,6 +46,10 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
               <div>
                 <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
                   <a>
+                    <TitleWrapper>
+                      <h1>{recipe.title}</h1>
+                      <p>{recipe.description}</p>
+                    </TitleWrapper>
                     {recipe.image_url === null ? (
                       <></>
                     ) : (
@@ -58,10 +62,6 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
                         />
                       </ImageWrapper>
                     )}
-                    <TitleWrapper>
-                      <h1>{recipe.title}</h1>
-                      <p>{recipe.description}</p>
-                    </TitleWrapper>
                   </a>
                 </Link>
                 <hr />

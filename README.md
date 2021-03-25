@@ -11,8 +11,6 @@ Cookpad Online Spring Internship 2021 のリポジトリです。インターン
 * OGP対応
 * CSS in JS導入 & 各ライブラリの比較
 * マイフォルダ機能の実装
-(TODO 登録ボタン初期値がバグってるので直す)
-
 * 無限スクロール
 * パフォーマンス最適化 web vitals(https://web.dev/vitals/)
 * GraphQL導入

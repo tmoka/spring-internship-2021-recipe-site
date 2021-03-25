@@ -4,6 +4,8 @@ import { RecipesType } from "../../constants/types"
 import Indexeddb from "../../db/indexeddb"
 import { useRouter } from "next/router"
 import Search from "../../components/Search"
+import Image from "next/image"
+import Link from "next/link"
 
 const MyFolder: FC = props => {
   const PAGENATION: number = 10
@@ -31,7 +33,23 @@ const MyFolder: FC = props => {
       <Search keyword={""} onSubmit={handleSubmit} />
       <h1>MyFolder</h1>
 
-      {favoredRecipes && favoredRecipes.map(recipe => <h1>{recipe.title}</h1>)}
+      {favoredRecipes &&
+        favoredRecipes.map(recipe => (
+          <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
+            <a>
+              <div>
+                <h1>{recipe.title}</h1>
+                <p>{recipe.description}</p>
+                <Image
+                  src={recipe.image_url}
+                  alt={recipe.description}
+                  height={400}
+                  width={600}
+                />
+              </div>
+            </a>
+          </Link>
+        ))}
     </div>
   )
 }

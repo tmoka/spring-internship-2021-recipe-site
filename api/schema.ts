@@ -26,7 +26,6 @@ const typeDefs: Config["typeDefs"] = gql`
   type Author {
     user_name: String
   }
-
 `
 
 export default typeDefs

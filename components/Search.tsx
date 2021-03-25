@@ -11,7 +11,6 @@ export type SearchProps = {
 const Search: FC<SearchProps> = (props: SearchProps) => {
   const router = useRouter()
   const [searchKeyword, setSearchKeyword] = useState("")
-  console.log(searchKeyword)
 
   const clickButton = () => {
     router.push({

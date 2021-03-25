@@ -7,6 +7,10 @@ import { APIResponseType, LinksType, RecipesType } from "../constants/types"
 import { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import styled from "styled-components"
+import { gql } from "@apollo/client"
+import client from "../apollo-client"
+import query from "./api/recipes_page"
+import { Button } from "../components/Button"
 
 type Props = {
   recipes: RecipesType
@@ -34,12 +38,12 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
       <AppContainer>
         <RecipeListContainer>
           <Header />
+          <Search keyword={""} onSubmit={handleSubmit} />
           <Link href="/myfolder">
             <a>
-              <button>マイフォルダ</button>
+              <Button>マイフォルダ</Button>
             </a>
           </Link>
-          <Search keyword={""} onSubmit={handleSubmit} />
           {recipes ? (
             recipes.map(recipe => (
               <div>

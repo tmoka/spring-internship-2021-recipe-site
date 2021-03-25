@@ -7,6 +7,8 @@ import Header from "../../components/Header"
 import Search from "../../components/Search"
 import { useRouter } from "next/router"
 import Indexeddb from "../../db/indexeddb"
+import Link from "next/link"
+import { Button, ConfirmButton } from "../../components/Button"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
@@ -27,8 +29,16 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const handleSubmit = (searchKeyword: string) => {
     searchKeyword ? router.push(`/?keyword=${searchKeyword}`) : router.push("/")
   }
+  const [isFavored, setIsFavored] = useState<Boolean>(false)
 
-  const [isFavored, setIsFavored] = useState(false)
+  useEffect(() => {
+    ;(async () => {
+      const database = new Indexeddb("myFolder")
+      await database.createObjectStore(["favoredRecipeTable"])
+      const value = await database.getValue("favoredRecipeTable", recipe.id)
+      if (value) setIsFavored(true)
+    })()
+  }, [])
 
   const handleFavClick = () => {
     const runIndexDb = async () => {
@@ -79,6 +89,11 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
         </Head>
         <Header />
         <Search keyword={""} onSubmit={handleSubmit} />
+        <Link href="/myfolder">
+          <a>
+            <Button>マイフォルダ</Button>
+          </a>
+        </Link>
         <h1>レシピ詳細</h1>
 
         {recipe && (
@@ -91,9 +106,9 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
             <p>作者：{recipe.author.user_name}</p>
             <p>作成日時：{dateString}</p>
 
-            <button onClick={handleFavClick}>
-              {isFavored ? "お気に入りから外す" : "お気に入りに登録する"}
-            </button>
+            <Button onClick={handleFavClick}>
+              {isFavored ? "💖お気に入りから外す" : "🤍お気に入りに登録する"}
+            </Button>
 
             <p>{recipe.description}</p>
 

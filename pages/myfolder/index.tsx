@@ -31,7 +31,7 @@ const MyFolder: FC = props => {
     <div>
       <Header></Header>
       <Search keyword={""} onSubmit={handleSubmit} />
-      <h1>MyFolder</h1>
+      <h1>お気に入り一覧</h1>
 
       {favoredRecipes &&
         favoredRecipes.map(recipe => (

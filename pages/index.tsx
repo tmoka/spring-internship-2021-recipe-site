@@ -8,6 +8,9 @@ import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import styled from "styled-components"
 import { Button } from "../components/Button"
+import { ApolloClient } from "apollo-boost"
+import { gql, Config } from "apollo-server-micro"
+import client from "../api/apollo-client"
 
 type Props = {
   recipes: RecipesType
@@ -16,7 +19,7 @@ type Props = {
 
 const TopPage: NextPage<Props> = (props: APIResponseType) => {
   const recipes = props.recipes
-  console.log(props)
+  //console.log(props)
   const router = useRouter()
 
   const handleSubmit = (searchKeyword: string) => {
@@ -73,12 +76,16 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
           {!props.links?.prev ? (
             <></>
           ) : (
-            <Link href={"/?" + props.links.prev.split("?")[1]}>前のページ</Link>
+            <Link href={"/?" + props.links.prev.split("?")[1]}>
+              <Button>前のページに戻る</Button>
+            </Link>
           )}
           {!props.links?.next ? (
             <></>
           ) : (
-            <Link href={"/?" + props.links.next.split("?")[1]}>次のページ</Link>
+            <Link href={"/?" + props.links.next.split("?")[1]}>
+              <Button>次のページに進む</Button>
+            </Link>
           )}
         </RecipeListContainer>
       </AppContainer>
@@ -87,7 +94,39 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const baseURL = "https://internship-recipe-api.ckpd.co"
+  const query = gql`
+    query RecipesPage($page: Int, $keyword: String) {
+      recipes(page: $page, keyword: $keyword) {
+        recipes {
+          id
+          title
+          description
+          image_url
+        }
+        links {
+          prev
+          next
+        }
+      }
+    }
+  `
+  const page = Number(context.query.page)
+  const pageNumber = Number.isNaN(page) ? 1 : page
+  const res = await client.query<any>({
+    query,
+    variables: { page: pageNumber, keyword: context.query.keyword },
+  })
+
+  const recipes: RecipesType = res.data.recipes.recipes
+  const links: LinksType = res.data.recipes.links
+  return {
+    props: {
+      recipes,
+      links,
+    },
+  }
+
+  /*const baseURL = "https://internship-recipe-api.ckpd.co"
   console.log(typeof context.query.page)
   const page = Number(context.query.page)
   const pageNumber = Number.isNaN(page) ? 1 : page
@@ -102,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       ? `/recipes\?page=${pageNumber}`
       : `/search\?keyword=${encodedKeyword}\&page=${pageNumber}`
   console.log(baseURL + endpointAndQuery)
-  const res = await fetch(baseURL + endpointAndQuery, {
+  const res = await fetch("baseURL + endpointAndQuery", {
     headers: {
       "Content-Type": "application/json",
       "X-API-KEY": `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`,
@@ -116,6 +155,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
   const links = json?.links
   const recipes = json?.recipes
+  
 
   return {
     props: {
@@ -123,6 +163,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       recipes,
     },
   }
+  */
 }
 const AppContainer = styled.div`
   width: 100%;

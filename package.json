@@ -19,6 +19,8 @@
   "homepage": "https://github.com/tmoka/spring-internship-2021-recipe-site#readme",
   "dependencies": {
     "@apollo/client": "^3.3.12",
+    "apollo-boost": "^0.4.9",
+    "apollo-client": "^2.6.10",
     "apollo-datasource-rest": "^0.10.0",
     "apollo-server-micro": "^2.21.2",
     "graphql": "^15.5.0",

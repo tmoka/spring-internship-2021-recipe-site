@@ -2,7 +2,6 @@ import styled from "styled-components"
 import * as color from "../constants/colors"
 
 export const Button = styled.button.attrs({ type: "button" })`
-  width: 16%;
   border: solid 1px ${color.Silver};
   border-radius: 3px;
   padding: 6px 8px;

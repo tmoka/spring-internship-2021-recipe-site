@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react"
 import { RecipeType } from "../../constants/types"
 import Head from "next/head"
+import Image from "next/image"
 import { GetServerSideProps } from "next"
 import styled from "styled-components"
 import Header from "../../components/Header"
@@ -107,7 +108,15 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
           <main>
             <h2>{recipe.title}</h2>
 
-            {recipe.image_url && (
+            {recipe.image_url === null ? (
+              <Image
+                src={"/images/no_image.png"}
+                alt="レシピ画像はありません"
+                height={500}
+                width={500}
+                className="center-image"
+              />
+            ) : (
               <img src={recipe.image_url} alt="レシピ画像" width="300" />
             )}
             <p>作者：{recipe.author.user_name}</p>

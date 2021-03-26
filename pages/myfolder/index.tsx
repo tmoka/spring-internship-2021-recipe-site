@@ -40,7 +40,15 @@ const MyFolder: FC = props => {
               <div>
                 <h1>{recipe.title}</h1>
                 <p>{recipe.description}</p>
-                {recipe.image_url && (
+                {recipe.image_url === null ? (
+                  <Image
+                    src={"/images/no_image.png"}
+                    alt="レシピ画像はありません"
+                    height={500}
+                    width={500}
+                    className="center-image"
+                  />
+                ) : (
                   <Image
                     src={recipe.image_url}
                     alt={recipe.description}

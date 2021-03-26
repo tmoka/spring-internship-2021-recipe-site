@@ -5,6 +5,7 @@ import { gql } from "@apollo/client"
 import { useMutation } from "@apollo/client"
 import { ConfirmButton } from "../../components/Button"
 import { RecipeInputType } from "../../constants/types"
+import Head from "next/head"
 
 const PostRecipe: FC = props => {
   const [formState, setFormState] = useState({
@@ -84,6 +85,13 @@ const PostRecipe: FC = props => {
 
   return (
     <div>
+      <Head>
+        <title>Cooking Site - お気に入り一覧</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        ></meta>
+      </Head>
       <Header />
       <h1>レシピを投稿する（未完成）</h1>
       <form

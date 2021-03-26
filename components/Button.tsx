@@ -33,3 +33,11 @@ export const ConfirmButton = styled(Button)`
     border-color: ${color.Navy};
   }
 `
+export const NextButton = styled(Button)`
+  float: right;
+`
+export const BackButton = styled(Button)``
+
+export const ButtonsContainer = styled.div`
+  padding: 2px 8px 8px 8px;
+`

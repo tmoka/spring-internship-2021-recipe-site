@@ -7,7 +7,12 @@ import { APIResponseType, LinksType, RecipesType } from "../constants/types"
 import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import styled from "styled-components"
-import { Button } from "../components/Button"
+import {
+  Button,
+  BackButton,
+  NextButton,
+  ButtonsContainer,
+} from "../components/Button"
 import { gql } from "apollo-server-micro"
 import client from "../api/apollo-client"
 
@@ -38,16 +43,18 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
         <RecipeListContainer>
           <Header />
           <Search keyword={""} onSubmit={handleSubmit} />
-          <Link href="/myfolder">
-            <a>
-              <Button>マイフォルダ</Button>
-            </a>
-          </Link>
-          <Link href="/create">
-            <a>
-              <Button>新規レシピ</Button>
-            </a>
-          </Link>
+          <ButtonsContainer>
+            <Link href="/myfolder">
+              <a>
+                <Button>マイフォルダ</Button>
+              </a>
+            </Link>
+            <Link href="/create">
+              <a>
+                <Button>新規レシピ</Button>
+              </a>
+            </Link>
+          </ButtonsContainer>
           {recipes ? (
             recipes.map(recipe => (
               <div>
@@ -86,20 +93,22 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
           ) : (
             <p>お探しのレシピは見つかりませんでした。</p>
           )}
-          {!props.links?.prev ? (
-            <></>
-          ) : (
-            <Link href={"/?" + props.links.prev.split("?")[1]}>
-              <Button>前のページに戻る</Button>
-            </Link>
-          )}
-          {!props.links?.next ? (
-            <></>
-          ) : (
-            <Link href={"/?" + props.links.next.split("?")[1]}>
-              <Button>次のページに進む</Button>
-            </Link>
-          )}
+          <ButtonsContainer>
+            {!props.links?.prev ? (
+              <></>
+            ) : (
+              <Link href={"/?" + props.links.prev.split("?")[1]}>
+                <BackButton>⬅︎ 前のページに戻る</BackButton>
+              </Link>
+            )}
+            {!props.links?.next ? (
+              <></>
+            ) : (
+              <Link href={"/?" + props.links.next.split("?")[1]}>
+                <NextButton>次のページに進む ➡︎</NextButton>
+              </Link>
+            )}
+          </ButtonsContainer>
         </RecipeListContainer>
       </AppContainer>
     </>

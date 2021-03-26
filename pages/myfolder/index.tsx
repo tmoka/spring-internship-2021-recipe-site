@@ -57,16 +57,16 @@ const MyFolder: FC = props => {
                     <Image
                       src={"/images/no_image.png"}
                       alt="レシピ画像はありません"
-                      height={500}
-                      width={500}
+                      height={400}
+                      width={400}
                       className="center-image"
                     />
                   ) : (
                     <Image
                       src={recipe.image_url}
                       alt={recipe.description}
-                      height={400}
-                      width={600}
+                      height={300}
+                      width={400}
                     />
                   )}
                   <hr />

@@ -115,16 +115,16 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
               <Image
                 src={"/images/no_image.png"}
                 alt="レシピ画像はありません"
-                height={500}
-                width={500}
+                height={400}
+                width={400}
                 className="center-image"
               />
             ) : (
               <Image
                 src={recipe.image_url}
                 alt="レシピ画像"
-                width={600}
-                height={400}
+                width={400}
+                height={300}
               />
             )}
             <DetailConteiner>

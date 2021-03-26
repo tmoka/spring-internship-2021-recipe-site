@@ -35,9 +35,11 @@ export const ConfirmButton = styled(Button)`
 `
 export const NextButton = styled(Button)`
   float: right;
+  clear: both;
 `
 export const BackButton = styled(Button)``
 
 export const ButtonsContainer = styled.div`
   padding: 2px 8px 8px 8px;
+  overflow:auto;
 `

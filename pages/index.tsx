@@ -15,6 +15,7 @@ import {
 } from "../components/Button"
 import { gql } from "apollo-server-micro"
 import client from "../api/apollo-client"
+import Footer from "../components/Footer"
 
 type Props = {
   recipes: RecipesType
@@ -109,7 +110,9 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
               </Link>
             )}
           </ButtonsContainer>
+          <Footer />
         </RecipeListContainer>
+        
       </AppContainer>
     </>
   )

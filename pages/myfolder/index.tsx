@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import Search from "../../components/Search"
 import Image from "next/image"
 import Link from "next/link"
+import { AppContainer,RecipeListContainer, TitleWrapper } from "../index"
 
 const MyFolder: FC = props => {
   const PAGENATION: number = 10
@@ -28,7 +29,8 @@ const MyFolder: FC = props => {
   console.log(favoredRecipes)
 
   return (
-    <div>
+    <AppContainer>
+      <RecipeListContainer>
       <Header></Header>
       <Search keyword={""} onSubmit={handleSubmit} />
       <h1>お気に入り一覧</h1>
@@ -38,8 +40,10 @@ const MyFolder: FC = props => {
           <Link href="/recipes/[id]" as={`/recipes/${recipe.id}`}>
             <a>
               <div>
-                <h1>{recipe.title}</h1>
-                <p>{recipe.description}</p>
+                <TitleWrapper>
+                  <h1>{recipe.title}</h1>
+                  <p>{recipe.description}</p>
+                </TitleWrapper>
                 {recipe.image_url === null ? (
                   <Image
                     src={"/images/no_image.png"}
@@ -56,11 +60,13 @@ const MyFolder: FC = props => {
                     width={600}
                   />
                 )}
+                <hr />
               </div>
             </a>
           </Link>
         ))}
-    </div>
+        </RecipeListContainer>
+    </AppContainer>
   )
 }
 

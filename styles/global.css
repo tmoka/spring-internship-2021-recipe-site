@@ -9,9 +9,14 @@ a {
     color:inherit;
 }
 
+h1 {
+    font-size: 1.3rem;
+}
+
 .center-image {
     display: block;
     margin-left: auto;
     margin-right: auto;
 
 }
+

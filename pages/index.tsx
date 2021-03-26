@@ -112,7 +112,6 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
           </ButtonsContainer>
           <Footer />
         </RecipeListContainer>
-        
       </AppContainer>
     </>
   )
@@ -150,73 +149,31 @@ export const getServerSideProps: GetServerSideProps = async context => {
       links,
     },
   }
-
-  /*const baseURL = "https://internship-recipe-api.ckpd.co"
-  console.log(typeof context.query.page)
-  const page = Number(context.query.page)
-  const pageNumber = Number.isNaN(page) ? 1 : page
-  const searchKeywordOrArray =
-    typeof context.query.keyword === "undefined" ? "" : context.query.keyword
-  const encodedKeyword = Array.isArray(searchKeywordOrArray)
-    ? searchKeywordOrArray.forEach(searchKeyword => encodeURI(searchKeyword))
-    : encodeURI(searchKeywordOrArray)
-
-  const endpointAndQuery =
-    encodedKeyword === ""
-      ? `/recipes\?page=${pageNumber}`
-      : `/search\?keyword=${encodedKeyword}\&page=${pageNumber}`
-  console.log(baseURL + endpointAndQuery)
-  const res = await fetch("baseURL + endpointAndQuery", {
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-KEY": `${process.env.NEXT_PUBLIC_RECIPES_APIKEY}`,
-    },
-  })
-  const json = await res.json()
-  if (typeof json?.recipes === "undefined") {
-    return {
-      props: {},
-    }
-  }
-  const links = json?.links
-  const recipes = json?.recipes
-  
-
-  return {
-    props: {
-      links,
-      recipes,
-    },
-  }
-  */
 }
-const AppContainer = styled.div`
+export const AppContainer = styled.div`
   width: 100%;
   background-color: #f0f0f0;
 `
 
-const RecipeListContainer = styled.div`
+export const RecipeListContainer = styled.div`
   width: 60%;
   @media screen and (max-width: 768px) {
     width: 100%;
   }
   background-color: white;
   margin: 0 auto;
+  overflow: hidden;
 `
 
-const ImageWrapper = styled.div`
-  //width: 80%;
-  //height: 80%;
-  //margin: 0 auto;
-  //display: inline-block;
-`
+const ImageWrapper = styled.div``
 
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
   width: 100%;
   height: 80%;
+  margin-right: 100px;
+  padding: 10px 100px 10px 0px;
   margin: 0 auto;
   text-align: center;
-  display: inline-block;
 `
 
 export default TopPage

@@ -4,17 +4,17 @@ import styled from "styled-components"
 import * as color from "../constants/colors"
 
 const Footer: FC = () => (
-    <FooterContainer>
-      <p>created by Tomoichiro Watari</p>
-    </FooterContainer>
-  )
-  
-  export default Footer
+  <FooterContainer>
+    <p>created by Tomoichiro Watari</p>
+  </FooterContainer>
+)
 
-  const FooterContainer = styled.div`
-  background-color:${color.CookpadOrange};
-  text-align:center;
+export default Footer
+
+const FooterContainer = styled.div`
+  background-color: ${color.CookpadOrange};
+  text-align: center;
   font-size: 12px;
   height: 2rem;
   line-height: 2rem;
-  `
+`

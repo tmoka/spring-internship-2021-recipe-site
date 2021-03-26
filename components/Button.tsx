@@ -41,5 +41,5 @@ export const BackButton = styled(Button)``
 
 export const ButtonsContainer = styled.div`
   padding: 2px 8px 8px 8px;
-  overflow:auto;
+  overflow: auto;
 `

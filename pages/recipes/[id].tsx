@@ -12,6 +12,7 @@ import Link from "next/link"
 import { Button } from "../../components/Button"
 import { gql } from "@apollo/client"
 import client from "../../api/apollo-client"
+import Footer from "../../components/Footer"
 
 const RecipePage: FC<RecipeType> = (props: RecipeType) => {
   const recipe: RecipeType = props
@@ -106,7 +107,9 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
 
         {recipe && (
           <main>
-            <h2>{recipe.title}</h2>
+            <TitleContainer>
+              <h2>{recipe.title}</h2>
+            </TitleContainer>
 
             {recipe.image_url === null ? (
               <Image
@@ -117,34 +120,42 @@ const RecipePage: FC<RecipeType> = (props: RecipeType) => {
                 className="center-image"
               />
             ) : (
-              <img src={recipe.image_url} alt="レシピ画像" width="300" />
+              <Image
+                src={recipe.image_url}
+                alt="レシピ画像"
+                width={600}
+                height={400}
+              />
             )}
-            <p>作者：{recipe.author.user_name}</p>
-            <p>作成日時：{dateString}</p>
+            <DetailConteiner>
+              <p>作者：{recipe.author.user_name}</p>
+              <p>作成日時：{dateString}</p>
 
-            <Button onClick={handleFavClick}>
-              {isFavored ? "💖お気に入りから外す" : "🤍お気に入りに登録する"}
-            </Button>
+              <Button onClick={handleFavClick}>
+                {isFavored ? "💖お気に入りから外す" : "🤍お気に入りに登録する"}
+              </Button>
 
-            <p>{recipe.description}</p>
+              <p>{recipe.description}</p>
 
-            <h3>材料</h3>
-            <ol>
-              {recipe.ingredients.map((ing, i) => (
-                <li key={i}>
-                  {ing.name} : {ing.quantity}
-                </li>
-              ))}
-            </ol>
+              <h3>材料</h3>
+              <ol>
+                {recipe.ingredients.map((ing, i) => (
+                  <li key={i}>
+                    {ing.name} : {ing.quantity}
+                  </li>
+                ))}
+              </ol>
 
-            <h3>手順</h3>
-            <ol>
-              {recipe.steps.map((step, i) => (
-                <li key={i}>{step}</li>
-              ))}
-            </ol>
+              <h3>手順</h3>
+              <ol>
+                {recipe.steps.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
+            </DetailConteiner>
           </main>
         )}
+        <Footer />
       </RecipeContainer>
     </AppContainer>
   )
@@ -200,6 +211,17 @@ const RecipeContainer = styled.div`
   }
   background-color: white;
   margin: 0 auto;
+`
+
+const TitleContainer = styled.div`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+`
+
+const DetailConteiner = styled.div`
+  margin-left: 30px;
+  margin-right: 30px;
 `
 
 export default RecipePage

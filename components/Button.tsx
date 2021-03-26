@@ -11,6 +11,7 @@ export const Button = styled.button.attrs({ type: "button" })`
   font-size: 14px;
   text-align: center;
   display: inline-block;
+  margin: 4px 4px 4px 4px;
 
   :hover:not(:disabled) {
     border-color: ${color.Gray};

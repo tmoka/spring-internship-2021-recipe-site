@@ -45,6 +45,8 @@ export default Search
 
 const SearchContainer = styled.div`
   width: 100%;
+  padding-top: 10px;
+  padding-bottom: 4px;
 `
 
 export const Button = styled.button.attrs({ type: "button" })`

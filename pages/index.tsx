@@ -58,7 +58,14 @@ const TopPage: NextPage<Props> = (props: APIResponseType) => {
                       <p>{recipe.description}</p>
                     </TitleWrapper>
                     {recipe.image_url === null ? (
-                      <></>
+                      <ImageWrapper>
+                      <Image
+                        src={"/images/no_image.png"}
+                        alt={recipe.description}
+                        height={500}
+                        width={500}
+                      />
+                    </ImageWrapper>
                     ) : (
                       <ImageWrapper>
                         <Image
